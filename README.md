@@ -1,18 +1,18 @@
-# Flutter Online Store Flutter Bloc
+# Flutter Cubit Online Store
 
-Sample apps using flutter bloc, http, fakeapi.platzi.com study case online store
+Sample apps using cubit by flutter bloc, http, fakeapi.platzi.com study case online store
 
 ## Youtube Link
 
-[![Watch the video](https://img.youtube.com/vi/McdoCn94yis/sddefault.jpg)](https://youtu.be/McdoCn94yis)
+[![Watch the video](https://img.youtube.com/vi/kQ1pScycmYM/sddefault.jpg)](https://youtu.be/kQ1pScycmYM)
 
-https://youtu.be/McdoCn94yis
+https://youtu.be/kQ1pScycmYM
 
 ## ScreenShot
 
 | Home        | Detail    |
 |--------------|-----------|
-| <img src="1.png" width="300"/> | <img src="2.png" width="300"/>      |
+| <img src="1.png" width="300"/> | <img src="3.png" width="300"/>      |
 
 ## Contact:
 * Consultation Flutter and Endorse https://t.me/bahri_bhe
