@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_grocery_ui/cubit/product_cubit.dart';
 import 'package:flutter_grocery_ui/item_widget.dart';
 
-import 'bloc/product_bloc.dart';
 import 'data.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductBloc()..add(GetProductEvent()),
+      create: (context) => ProductCubit()..getProducts(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -101,7 +101,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: BlocBuilder<ProductBloc, ProductState>(
+      body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           if (state is ProductLoading) {
             return const Center(

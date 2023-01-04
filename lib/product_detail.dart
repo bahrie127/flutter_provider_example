@@ -98,13 +98,13 @@ class _ProductDetailState extends State<ProductDetail> {
                       fontSize: 30,
                       fontWeight: FontWeight.w700),
                 ),
-                Text(
-                  ' /${widget.product.price}',
-                  style: const TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
-                ),
+                // Text(
+                //   ' /${widget.product.price}',
+                //   style: const TextStyle(
+                //       color: Colors.green,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w400),
+                // ),
               ],
             ),
           ),
