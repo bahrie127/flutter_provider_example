@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_grocery_ui/cubit/product_cubit.dart';
 import 'package:flutter_grocery_ui/item_widget.dart';
+import 'package:flutter_grocery_ui/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'data.dart';
 
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductCubit()..getProducts(),
+    return ChangeNotifierProvider(
+      create: (context) => ProductProvider()..getProducts(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -47,68 +47,68 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        backgroundColor: Colors.white,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.black,
-        ),
-        title: const Text(
-          'Online Store',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: [
-          Row(
-            children: [
-              const Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              Stack(
-                children: [
-                  IconButton(
-                    onPressed: (() {}),
-                    icon: const Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 3,
-                    child: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: Colors.white,
+          leading: const Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+          title: const Text(
+            'Online Store',
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                Stack(
+                  children: [
+                    IconButton(
+                      onPressed: (() {}),
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
                       ),
-                      child: const Center(
-                        child: Text(
-                          "2",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 3,
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "2",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: BlocBuilder<ProductCubit, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is ProductSuccess) {
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        body: Consumer<ProductProvider>(
+          builder: (context, value, child) {
+            if (value.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
             return Container(
               padding: const EdgeInsets.all(10),
               child: GridView.builder(
@@ -119,17 +119,43 @@ class _MainPageState extends State<MainPage> {
                   childAspectRatio: 0.65,
                 ),
                 itemBuilder: (context, index) {
-                  return ItemWidget(product: state.products[index]);
+                  return ItemWidget(product: value.products[index]);
                 },
-                itemCount: state.products.length,
+                itemCount: value.products.length,
               ),
             );
-          }
-          return const Center(
-            child: Text('No Data'),
-          );
-        },
-      ),
-    );
+          },
+        )
+
+        // BlocBuilder<ProductCubit, ProductState>(
+        //   builder: (context, state) {
+        //     if (state is ProductLoading) {
+        //       return const Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     }
+        //     if (state is ProductSuccess) {
+        //       return Container(
+        //         padding: const EdgeInsets.all(10),
+        //         child: GridView.builder(
+        //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //             mainAxisSpacing: 10,
+        //             crossAxisSpacing: 10,
+        //             crossAxisCount: 2,
+        //             childAspectRatio: 0.65,
+        //           ),
+        //           itemBuilder: (context, index) {
+        //             return ItemWidget(product: state.products[index]);
+        //           },
+        //           itemCount: state.products.length,
+        //         ),
+        //       );
+        //     }
+        //     return const Center(
+        //       child: Text('No Data'),
+        //     );
+        //   },
+        // ),
+        );
   }
 }
